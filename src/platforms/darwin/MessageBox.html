@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MessageBox</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      body {
+        display: flex;
+      }
+      img {
+        display: inline-block;
+      }
+      .hide {
+        display: none !important;
+      }
+      .disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      .message-box {
+        min-width: 260px;
+        max-width: 560px;
+        padding: 15px;
+        text-align: center;
+        -webkit-app-region: drag;
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+      }
+      .header {
+        user-select: none;
+        padding: 10px 0;
+      }
+      .system-icon,
+      .header-icon {
+        width: 60px;
+        height: 60px;
+      }
+      .system-icon {
+        display: none;
+      }
+      .icon-box {
+        display: inline-block;
+        position: relative;
+      }
+      .warning .system-icon,
+      .type-error .system-icon {
+        display: inline-block;
+      }
+      .warning .header-icon,
+      .type-error .header-icon {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+      .title,
+      .close-button,
+      .body-icon {
+        display: none;
+      }
+      .message {
+        font-weight: bold;
+      }
+      .detail {
+        font-size: 80%;
+        overflow: hidden;
+      }
+      .message,
+      .detail,
+      .input-options,
+      .buttons,
+      .footer .checkbox {
+        margin-top: 10px;
+        -webkit-app-region: no-drag;
+      }
+      .buttons {
+        flex: auto;
+        white-space: nowrap;
+      }
+      .button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: none;
+        background-color: #ccc;
+      }
+      .button:hover {
+        background-color: #ddd;
+      }
+      .button + .button {
+        margin-top: 4px;
+      }
+      .input-group {
+        display: table;
+        margin: 0 auto;
+      }
+      .radio + .radio,
+      .checkbox + .checkbox,
+      .input-group + .input-group,
+      .table-row + .table-row {
+        margin-top: 8px;
+      }
+      .input-box {
+        display: flex;
+        flex-flow: column;
+      }
+      .radio,
+      .checkbox {
+        display: flex;
+      }
+      .footer .checkbox {
+        justify-content: center;
+      }
+      .checkbox-label,
+      .radio-label,
+      .input-label,
+      .description {
+        font-size: 80%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        user-select: none;
+        text-align: left;
+      }
+      .input-label {
+        text-align: left;
+        margin-bottom: 4px;
+      }
+      .checkbox-label.required::before,
+      .input-label.required::before {
+        content: "*";
+        margin-right: 4px;
+        color: #f56c6c;
+      }
+      .description {
+        color: #909399;
+        margin: 4px 0;
+      }
+      .input-input {
+        outline: none;
+        border-radius: 4px;
+        border: 1px solid #dcdfe6;
+        padding: 4px 8px;
+        transition: border 0.3s, background-color 0.3s;
+      }
+      .input-input:focus {
+        border-color: #409eff;
+      }
+      .error .input-input {
+        border-color: #f56c6c;
+        background-color: #fde2e2;
+      }
+      .error .checkbox-label {
+        color: #f56c6c;
+      }
+    </style>
+    <style id="custom-style"></style>
+  </head>
+  <body>
+    <div class="message-box">
+      <div class="header">
+        <div class="icon-box">
+          <img
+            src="data:image/png;base64,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"
+            class="system-icon"
+          />
+          <img src="" class="header-icon" />
+        </div>
+        <span class="title">Title</span>
+        <div class="close-button">
+          <img src="" class="close-icon" />
+        </div>
+      </div>
+      <div class="body">
+        <div class="content">
+          <img src="" class="body-icon" />
+          <span class="message">Message</span>
+        </div>
+        <div class="input-options"></div>
+        <div>
+          <span class="detail">Detail</span>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="buttons">
+          <button class="button">OK</button>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="checkbox" class="checkbox-input" />
+          <label for="checkbox" class="checkbox-label">Checkbox</label>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="../../eval.js"></script> -->
+  </body>
+</html>

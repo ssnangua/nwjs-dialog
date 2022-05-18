@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MessageBox</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      body {
+        display: flex;
+      }
+      img {
+        display: inline-block;
+      }
+      .hide {
+        display: none !important;
+      }
+      .disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      .message-box {
+        min-width: 362px;
+        max-width: 560px;
+        border: 1px solid #707070;
+      }
+      .header {
+        -webkit-app-region: drag;
+        position: relative;
+        user-select: none;
+        display: flex;
+        padding: 4px;
+      }
+      .header-icon {
+        width: 16px;
+        height: 16px;
+      }
+      .title {
+        margin-left: 4px;
+        font-size: 12px;
+      }
+      .close-button {
+        -webkit-app-region: no-drag;
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 4px 8px;
+        transition: background-color 0.3s;
+      }
+      .close-button:hover {
+        background-color: #e81123;
+      }
+      .close-icon {
+        width: 16px;
+        height: 16px;
+        transition: filter 0.3s;
+      }
+      .close-button:hover .close-icon {
+        filter: invert(100%);
+      }
+      .title,
+      .message,
+      .checkbox-label,
+      .radio-label,
+      .input-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .body {
+        padding: 12px;
+      }
+      .content {
+        display: flex;
+      }
+      .body-icon {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+      }
+      .message {
+        color: #003399;
+      }
+      .detail {
+        font-size: 80%;
+        overflow: hidden;
+      }
+      .has-icon .detail {
+        padding-left: 42px;
+      }
+      .footer {
+        height: 42px;
+        padding: 0 10px;
+        background: #f0f0f0;
+        border-top: 1px #dfdfdf solid;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+      }
+      .input-options {
+        margin: 8px 0;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+      }
+      .radio + .radio,
+      .checkbox + .checkbox,
+      .input-group + .input-group {
+        margin-top: 8px;
+      }
+      .checkbox,
+      .radio {
+        display: flex;
+        overflow: hidden;
+      }
+      .checkbox-label,
+      .radio-label,
+      .input-label {
+        font-size: 80%;
+        margin-right: 8px;
+      }
+      .input-label {
+        text-align: right;
+      }
+      .checkbox-label.required::before,
+      .input-label.required::before {
+        content: "*";
+        margin-right: 4px;
+        color: #f56c6c;
+      }
+      .description {
+        font-size: 80%;
+        color: #909399;
+        margin: 4px 0;
+        white-space: nowrap;
+      }
+      .input-input {
+        outline: none;
+        border: 1px solid #dcdfe6;
+        padding: 4px 8px;
+        transition: border 0.3s, background-color 0.3s;
+      }
+      .input-input:focus {
+        border-color: #0078d7;
+      }
+      .error .input-input {
+        border-color: #f56c6c;
+        background-color: #fde2e2;
+      }
+      .error .checkbox-label {
+        color: #f56c6c;
+      }
+      .table {
+        display: table;
+      }
+      .table-row {
+        display: table-row;
+      }
+      .table-cell {
+        display: table-cell;
+        padding: 2px;
+      }
+      .input-box {
+        display: flex;
+        flex-flow: column;
+      }
+      .buttons {
+        flex: auto;
+        text-align: right;
+        white-space: nowrap;
+      }
+      .button {
+        outline: none;
+        padding: 2px 12px;
+        min-width: 50px;
+        background-color: #e1e1e1;
+        border: 1px solid #adadad;
+        transition: border-color 0.3s, background-color 0.3s;
+      }
+      .button:hover {
+        background-color: #e5f1fb;
+        border-color: #0078d7;
+      }
+      .button + .button {
+        margin-left: 8px;
+      }
+    </style>
+    <style id="custom-style"></style>
+  </head>
+  <body>
+    <div class="message-box">
+      <div class="header">
+        <img src="" class="header-icon" />
+        <span class="title">Title</span>
+        <div class="close-button">
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAABGklEQVR4nO2aOw6DMBBERzlROFKocgPKUObS+TSMFBGIQoK9tmeeREG189b8bAMYY4wxxhhjNnKMDvBC9iwjgDuAc+7CC5wA3ABccxUcATymI7oJlGee5E3oZgUf03mfuvAC/UqWLnXhedcjroTwDJEBwuUjgxQjHxGoOHmSI1ix8iRlwOLlSYqg1ciTPQNXJ0/2CF6tPPlHoHp58otIM/Jki1Bz8uQbsWblySfB5uXJ2vS1lOl1FpZGu/mRn7PWhBD5Q+6C6kjfAtIPQenXoPSHkPSnsPRkSHo6LL0gIr0kJr0oKr0sLr0xIr01Jr05Kr09Hh4gMoN/kQEwoJCHEN6vhEuuwgPi5QmbkE2eSP8oaYwxxhhjTOU8AVKPndYdyCEBAAAAAElFTkSuQmCC"
+            class="close-icon"
+          />
+        </div>
+      </div>
+      <div class="body">
+        <div class="content">
+          <img src="" class="body-icon" />
+          <span class="message">Message</span>
+        </div>
+        <div class="input-options"></div>
+        <div class="detail">Detail</div>
+      </div>
+      <div class="footer">
+        <div class="checkbox">
+          <input type="checkbox" id="checkbox" class="checkbox-input" />
+          <label for="checkbox" class="checkbox-label">Checkbox</label>
+        </div>
+        <div class="buttons">
+          <button class="button">OK</button>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="../../eval.js"></script> -->
+  </body>
+</html>
