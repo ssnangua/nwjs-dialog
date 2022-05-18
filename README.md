@@ -180,7 +180,7 @@ Main elements's class names:
 
 ### Input Options
 
-You can add simple input options.
+You can add simple input options in message box.
 
 `inputOptions` object (optional) - User input options
 
@@ -206,7 +206,7 @@ You can add simple input options.
 
 If the message box was opened through another window, the resolve handler will be lost when the window is closed.
 
-So if you need to do some important processing on user input, you should open the message window in bg-script.
+So if you need to do some important processing on user input, you should open the message box in bg-script.
 
 ```js
 const { showMessageBox } = require("nwjs-dialog");
