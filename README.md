@@ -4,6 +4,12 @@ File dialog and message box for NW.js.
 
 ![](./images/message-box.jpg)
 
+## Install
+
+```bash
+npm install nwjs-dialog
+```
+
 ## Open Dialog
 
 Shows an open dialog.
