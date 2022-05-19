@@ -50,9 +50,9 @@ showOpenDialog({
 
 ## Save Dialog
 
-Shows a open dialog.
+Shows a save dialog.
 
-`dialog.showOpenDialog([win, ]options)`
+`dialog.showSaveDialog([win, ]options)`
 
 - `win` (optional)
 - `options` (optional)
