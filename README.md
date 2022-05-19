@@ -338,6 +338,7 @@ showMessageBox({
         return false;
       } else if (!checkboxChecked) {
         win.window.alert("You need to agree to the User Agreement.");
+        return false;
       } else {
         // Can return a promise and you can send network requests to validate the data
         return new Promise((resolve) => {
