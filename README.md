@@ -113,7 +113,7 @@ showMessageBox({ message: "Something is wrong", type: "error" });
   - `inputOptions` object (optional) - User input options
   - `onLoad` function `(win) => void` (optional) - Called when the message box was loaded.
   - `onClose` function `(returnValue, win) => Promise<boolean|void>` (optional) - Called before the message box closes, return `false` will prevents the window close.
-  - `onValidate` function `(errors) => void` (optional) - Called after input option validate, contains all input options errors, if everything is correct, it will be an empty array.
+  - `onValidate` function `(errors, win) => void` (optional) - Called after input option validate, contains all input options errors, if everything is correct, it will be an empty array.
 
 Returns `Promise<MessageBoxReturnValue>` - Resolve with an object containing the following:
 
@@ -201,12 +201,6 @@ You can add simple input options in message box.
   - `password` string (optional) - Set to password input.
   - `required` boolean (optional) - Whether the input is required.
   - `rule` RegExp | `(value: string) => boolean` (optional) - Validation rule for the input. e.g. `/^\d+$/`
-
-**NOTE**
-
-If the message box was opened through another window, the resolve handler will be lost when the window is closed.
-
-So if you need to do some important processing on user input, you should open the message box in bg-script.
 
 ```js
 const { showMessageBox } = require("nwjs-dialog");
@@ -346,8 +340,9 @@ showMessageBox({
             if (user !== "ssnangua") {
               win.window.alert("Incorrect user or password.");
               resolve(false);
+            } else {
+              resolve(true);
             }
-            resolve(true);
           }, 1000);
         });
       }
@@ -359,5 +354,44 @@ showMessageBox({
     const [remenberMe] = inputData.checkboxes;
     console.log(user, password, remenberMe);
   }
+});
+```
+
+**NOTE**
+
+If the message box was opened through another window, the resolve handler will be lost when the window is closed.
+
+So if you need to do some important processing on user input, you should open the message box in bg-script.
+
+Or you can make the window uncloseable until the message box is closed:
+
+```js
+let msgbox = true;
+showMessageBox({
+  message: "A modal message box",
+}).then(() => (msgbox = false));
+
+const curWin = nw.Window.get();
+curWin.on("close", () => {
+  if (!msgbox) curWin.close(true);
+});
+```
+
+Or use with `nwjs-window-manager`:
+
+```bash
+npm install nwjs-window-manager
+```
+
+```js
+const { wm } = require("nwjs-window-manager");
+showMessageBox({
+  message: "A modal message box",
+  onLoad(win) {
+    wm(win, {
+      parent: nw.Window.get(),
+      modal: true,
+    });
+  },
 });
 ```

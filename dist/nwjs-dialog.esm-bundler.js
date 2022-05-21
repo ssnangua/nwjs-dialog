@@ -132,7 +132,7 @@ function showSaveDialog(winOrOptions, maybeOptions) {
 // @ts-ignore: import by replace plugin
 let platforms = platformsPreset;
 // @ts-ignore: import by replace plugin
-const version = "1.0.0";
+const version = "1.0.4";
 // @ts-ignore: import by replace plugin
 const evalTemplate = `function $(selector) {
   return document.querySelector(selector);
@@ -387,8 +387,11 @@ function checkPlatformInitialized(platform) {
 const instances = {};
 function messageBox(win, options) {
     return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
-        yield domReady(win.window.document);
-        let { title = win.window.document.title ||
+        var _a;
+        const document = (_a = win.window) === null || _a === void 0 ? void 0 : _a.document;
+        if (document)
+            yield domReady(document);
+        let { title = (document === null || document === void 0 ? void 0 : document.title) ||
             ("title" in win && win.title) ||
             nw.App.manifest.name, type = "none", icon = "", buttons = [], message = "", detail = "", checkboxLabel = "", checkboxChecked, id = "", platform = "default", customStyle = "", inputOptions, onLoad, onClose, onValidate, } = options;
         // Singleton

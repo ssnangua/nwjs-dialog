@@ -1,6 +1,6 @@
 {
   "name": "nwjs-dialog",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "File dialog and message box for NW.js.",
   "scripts": {
     "tsc": "tsc",

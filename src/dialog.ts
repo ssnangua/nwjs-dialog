@@ -549,10 +549,11 @@ function messageBox(
   options: MessageBoxOptions
 ): Promise<MessageBoxReturnValue> {
   return new Promise(async (resolve) => {
-    await domReady(win.window.document);
+    const document = win.window?.document;
+    if (document) await domReady(document);
 
     let {
-      title = win.window.document.title ||
+      title = document?.title ||
         ("title" in win && win.title) ||
         nw.App.manifest.name,
       type = "none",
