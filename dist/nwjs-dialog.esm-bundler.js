@@ -1,6 +1,3 @@
-import path from 'path';
-import fs from 'fs';
-
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -45,6 +42,16 @@ var img$1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsA
 var img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAgVBMVEUAAAD74QCBgH354gD9wQDXoyeaiWX64gDXpCaYiGb+wgD64gGvlE/+wQDbpyKYiGb6vQP/uQD7tgP84QD84AD/tQD82wD/5ADv1QD/1wAAAAAUEgD53gD/7AD63wD+1gAKCQD/5wD/2ADy2ABGPgAyLQAFBADErwC/qwBWTQAgHABJkfl9AAAAE3RSTlMA/gL69ZYh/Jgf9/xA+aMe7+7S5JD/7QAAAf1JREFUWMOl1utSwkAMBeBtQEq5qq0CBQG5w/s/oGG5nJke6V6aP3UcmvlIsmFNbYgMBiImPsSMRiYiAQDZcJiJNAC8bTZvDQjSaSdJuyPxgO6s1Zp1YwliroArwUg8oChAiAKAENMCBeS5EtCIcEBRgBBTgVwDVQgE9K4AfV8fPRBCASDEAkAIbkGqr98JaWgjxGTtG+BBaGdGIgEgBM8AvgJmIWgIEYHjKLoH0hsAhFT3gvgDVvYU5IUN/UMJKxA8AP0HAIQ+CH4VsIKFhj7CqvCsQDGZ7i+X/XRSPKsQ1oLlZLouy/V0sgxrRKeXJlo5K5iX5dwKtJ5J2usEACoJAgiZrQAnsFXIfAEk8CeMLYASPAhjfwALQHBWgBOgCj4AFngTstsp4AQ4EZk3gBOA4N6EnMC9HQHgBH4EAChBheAH4AQguFYxJ3AtaGxCh+D1dhQBgBNUCSIOACUgAgPQgtcJ0AgRRwsogasRVIHKUuUq/HshqQq2u/1+t60IcGWhGaAP5r8aOf5Ns1ADqPwy1REA4Aw/GvqoJaAF/P7ieDodF8jAjWCAuwtMQAV4Dg4HmgOqAu6ELDiU5YEFuDtWADwH593ujDlgAgHcXWAC7oQ+c0B3R6zioMCCBiAsQLDHsIiK+6HsblpJHhVJa9M1ZvD+3SB0HD++GsXnH+sjkWzmMee9AAAAAElFTkSuQmCC";
 
 var _a, _b, _c;
+/**
+ * NW.js dialog
+ *
+ * @remarks
+ * File dialog and message box for NW.js.
+ *
+ * @packageDocumentation
+ */
+const path = nw.require("path");
+const fs = nw.require("fs");
 const platformsPreset = {
   darwin: {
     dirPath: "",
@@ -132,7 +139,7 @@ function showSaveDialog(winOrOptions, maybeOptions) {
 // @ts-ignore: import by replace plugin
 let platforms = platformsPreset;
 // @ts-ignore: import by replace plugin
-const version = "1.0.4";
+const version = "1.0.5";
 // @ts-ignore: import by replace plugin
 const evalTemplate = `function $(selector) {
   return document.querySelector(selector);

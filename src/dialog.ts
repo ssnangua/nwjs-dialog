@@ -6,8 +6,8 @@
  *
  * @packageDocumentation
  */
-import path from "path";
-import fs from "fs";
+const path = nw.require("path");
+const fs = nw.require("fs");
 
 // @ts-ignore: import platformsPreset
 __IMPORT_PLATFORMS__;

@@ -95,7 +95,7 @@ showMessageBox({ message: "Message" });
 showMessageBox({ message: "Something is wrong", type: "error" });
 ```
 
-`dialog.showOpenDialog([win, ]options)`
+`dialog.showMessageBox([win, ]options)`
 
 - `win` (optional) - If `title` option is omitted, it will be the win's title.
 - `options`
@@ -148,6 +148,7 @@ showMessageBox({
 Main elements's class names:
 
 <!-- prettier-ignore -->
+
 ```css
 /* .header */
 .header-icon {}
@@ -395,3 +396,11 @@ showMessageBox({
   },
 });
 ```
+
+## Change Log
+
+### 1.0.5
+
+- Fix: use `nw.require(...)` instead of `import ... from ...` to import `path` and `fs`.
+
+
