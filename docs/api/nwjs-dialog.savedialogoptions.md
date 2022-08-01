@@ -23,4 +23,5 @@ When `nwsaveas` is omitted, the filename defaults to empty.
 |  [accept?](./nwjs-dialog.savedialogoptions.accept.md) | string | <i>(Optional)</i> |
 |  [nwsaveas?](./nwjs-dialog.savedialogoptions.nwsaveas.md) | string | <i>(Optional)</i> |
 |  [nwworkingdir?](./nwjs-dialog.savedialogoptions.nwworkingdir.md) | string | <i>(Optional)</i> |
+|  [returnFormat?](./nwjs-dialog.savedialogoptions.returnformat.md) | [DialogReturnFormat](./nwjs-dialog.dialogreturnformat.md) | <i>(Optional)</i> |
 

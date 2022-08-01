@@ -25,4 +25,5 @@ export interface OpenDialogOptions
 |  [nwdirectory?](./nwjs-dialog.opendialogoptions.nwdirectory.md) | boolean | <i>(Optional)</i> |
 |  [nwdirectorydesc?](./nwjs-dialog.opendialogoptions.nwdirectorydesc.md) | string | <i>(Optional)</i> |
 |  [nwworkingdir?](./nwjs-dialog.opendialogoptions.nwworkingdir.md) | string | <i>(Optional)</i> |
+|  [returnFormat?](./nwjs-dialog.opendialogoptions.returnformat.md) | [DialogReturnFormat](./nwjs-dialog.dialogreturnformat.md) | <i>(Optional)</i> |
 

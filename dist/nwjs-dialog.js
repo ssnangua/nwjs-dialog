@@ -128,7 +128,14 @@
             });
             input.click();
             return new Promise((resolve) => {
-                input.addEventListener("change", () => resolve(input.value.split(";")));
+                input.addEventListener("change", () => {
+                    if (options.returnFormat === "file") {
+                        resolve(Array.from(input.files || []));
+                    }
+                    else {
+                        resolve(input.value.split(";"));
+                    }
+                });
             });
         });
     }
@@ -145,7 +152,7 @@
     // @ts-ignore: import by replace plugin
     let platforms = platformsPreset;
     // @ts-ignore: import by replace plugin
-    const version = "1.0.5";
+    const version = "1.0.6";
     // @ts-ignore: import by replace plugin
     const evalTemplate = `function $(selector) {
   return document.querySelector(selector);

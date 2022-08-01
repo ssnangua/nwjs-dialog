@@ -38,6 +38,7 @@
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [DialogReturnFormat](./nwjs-dialog.dialogreturnformat.md) | Dialog return format |
 |  [ImageBase64](./nwjs-dialog.imagebase64.md) | Alias of <code>string</code>, used to identify the base64 data of the image. |
 |  [URLString](./nwjs-dialog.urlstring.md) | Alias of <code>string</code>, used to identify the url. |
 

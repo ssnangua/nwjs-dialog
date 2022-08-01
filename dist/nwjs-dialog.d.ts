@@ -1,6 +1,18 @@
 /// <reference types="nw.js" />
 
 /**
+ * Dialog return format
+ *
+ * @remarks
+ * - `"string"` - Return an array of file paths chosen by the user
+ *
+ * - `"file"` - Return an array of files chosen by the user
+ *
+ * @public
+ */
+export declare type DialogReturnFormat = "string" | "file";
+
+/**
  * Alias of `string`, used to identify the base64 data of the image.
  * @public
  */
@@ -119,6 +131,7 @@ export declare interface MessageBoxReturnValue {
  * @param nwdirectory - Select directory
  * @param multiple - Allow multiple files to be selected
  * @param accept - Defines the file types should accept
+ * @param returnFormat - Return format, `"string"` or `"file"`, `"string"` by default
  *
  * @remarks
  * `multiple` and `accept` have no effect when `nwdirectory` is `true`.
@@ -131,6 +144,7 @@ export declare interface OpenDialogOptions {
     nwdirectory?: boolean;
     multiple?: boolean;
     accept?: string;
+    returnFormat?: DialogReturnFormat;
 }
 
 /**
@@ -175,6 +189,7 @@ export declare interface Platforms {
  * @param nwworkingdir - Default path
  * @param nwsaveas - Default filename for saving
  * @param accept - Defines the file types should accept
+ * @param returnFormat - Return format, `"string"` or `"file"`, `"string"` by default
  *
  * @remarks
  * When `nwsaveas` is omitted, the filename defaults to empty.
@@ -185,6 +200,7 @@ export declare interface SaveDialogOptions {
     nwworkingdir?: string;
     nwsaveas?: string;
     accept?: string;
+    returnFormat?: DialogReturnFormat;
 }
 
 /**
@@ -270,7 +286,7 @@ export declare function showOpenDialog(): Promise<String[]>;
 /**
  * Shows an open dialog
  * @param options - Open dialog options
- * @returns An array of file paths chosen by the user
+ * @returns An array of files or file paths chosen by the user
  *
  * @remarks
  * This method creates a temporary `<input>` and triggers `click` event to shows an open dialog.
@@ -291,7 +307,7 @@ export declare function showOpenDialog(): Promise<String[]>;
  *
  * @public
  */
-export declare function showOpenDialog(options: OpenDialogOptions): Promise<String[]>;
+export declare function showOpenDialog(options: OpenDialogOptions): Promise<String[] | File[]>;
 
 /**
  * Shows an open dialog
@@ -319,7 +335,7 @@ export declare function showOpenDialog(win: NWJS_Helpers.win | Window): Promise<
  * Shows an open dialog
  * @param win - The `win` argument allows the dialog to attach itself to a parent window, making it modal.
  * @param options - Open dialog options
- * @returns An array of file paths chosen by the user
+ * @returns An array of files or file paths chosen by the user
  *
  * @remarks
  * This method creates a temporary `<input>` and triggers `click` event to shows an open dialog.
@@ -335,7 +351,7 @@ export declare function showOpenDialog(win: NWJS_Helpers.win | Window): Promise<
  *
  * @public
  */
-export declare function showOpenDialog(win: NWJS_Helpers.win | Window, options: OpenDialogOptions): Promise<String[]>;
+export declare function showOpenDialog(win: NWJS_Helpers.win | Window, options: OpenDialogOptions): Promise<String[] | File[]>;
 
 /**
  * Shows a save dialog
@@ -360,7 +376,7 @@ export declare function showSaveDialog(): Promise<String[]>;
 /**
  * Shows a save dialog
  * @param options - Save dialog options
- * @returns An array of file paths chosen by the user.
+ * @returns An array of files or file paths chosen by the user.
  *
  * @remarks
  * This method creates a temporary `<input>` and triggers `click` event to shows a save dialog.
@@ -380,7 +396,7 @@ export declare function showSaveDialog(): Promise<String[]>;
  *
  * @public
  */
-export declare function showSaveDialog(options: SaveDialogOptions): Promise<String[]>;
+export declare function showSaveDialog(options: SaveDialogOptions): Promise<String[] | File[]>;
 
 /**
  * Shows a save dialog
@@ -409,7 +425,7 @@ export declare function showSaveDialog(win: NWJS_Helpers.win | Window): Promise<
  * Shows a save dialog
  * @param win - The `win` argument allows the dialog to attach itself to a parent window, making it modal.
  * @param options - Save dialog options
- * @returns An array of file paths chosen by the user.
+ * @returns An array of files or file paths chosen by the user.
  *
  * @remarks
  * This method creates a temporary `<input>` and triggers `click` event to shows a save dialog.
@@ -426,7 +442,7 @@ export declare function showSaveDialog(win: NWJS_Helpers.win | Window): Promise<
  *
  * @public
  */
-export declare function showSaveDialog(win: NWJS_Helpers.win | Window, options: SaveDialogOptions): Promise<String[]>;
+export declare function showSaveDialog(win: NWJS_Helpers.win | Window, options: SaveDialogOptions): Promise<String[] | File[]>;
 
 /**
  * Alias of `string`, used to identify the url.

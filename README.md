@@ -20,11 +20,12 @@ Shows an open dialog.
 - `options` (optional)
   - `nwdirectorydesc` string (optional) - Dialog title
   - `nwworkingdir` string (optional) - Default path
-  - `nwdirectory` boolean (optional) - Select directory
-  - `multiple` boolean (optional) - Allow multiple files to be selected
+  - `nwdirectory` boolean (optional) - Select directory, `false` by default
+  - `multiple` boolean (optional) - Allow multiple files to be selected, `false` by default
   - `accept` string (optional) - Defines the file types should accept
+  - `returnFormat` string (optional) - Return format, `"string"` or `"file"`, `"string"` by default
 
-Returns `Promise<string[]>` - Resolve with an array of file paths chosen by the user.
+Returns `Promise<string[] | File[]>` - Resolve with an array of files or file paths chosen by the user.
 
 The `win` argument allows the dialog to attach itself to a parent window, making it modal.
 
@@ -43,6 +44,7 @@ showOpenDialog({
   nwdirectory: false,
   multiple: true,
   accept: "audio/*,video/*,image/*,.txt",
+  returnFormat: "string",
 }).then((filePaths) => {
   console.log(filePaths);
 });
@@ -59,8 +61,9 @@ Shows a save dialog.
   - `nwworkingdir` string (optional) - Default path
   - `nwsaveas` string (optional) - Default filename for saving
   - `accept` string (optional) - Defines the file types should accept
+  - `returnFormat` string (optional) - Return format, `"string"` or `"file"`, `"string"` by default
 
-Returns `Promise<string[]>` - Resolve with an array of file paths chosen by the user.
+Returns `Promise<string[] | File[]>` - Resolve with an array of files or file paths chosen by the user.
 
 The `win` argument allows the dialog to attach itself to a parent window, making it modal.
 
@@ -78,6 +81,7 @@ showSaveDialog({
   nwworkingdir: process.cwd(),
   nwsaveas: "1.txt",
   accept: "audio/*,video/*,image/*,.txt",
+  returnFormat: "file",
 }).then(([filePath]) => {
   fs.writeFileSync(filePath, "Hello");
 });
@@ -403,4 +407,6 @@ showMessageBox({
 
 - Fix: use `nw.require(...)` instead of `import ... from ...` to import `path` and `fs`.
 
+### 1.0.6
 
+- Feature: `showOpenDialog` and `showSaveDialog` add `returnFormat` option.

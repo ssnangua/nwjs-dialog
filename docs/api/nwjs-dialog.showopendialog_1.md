@@ -9,7 +9,7 @@ Shows an open dialog
 <b>Signature:</b>
 
 ```typescript
-export declare function showOpenDialog(options: OpenDialogOptions): Promise<String[]>;
+export declare function showOpenDialog(options: OpenDialogOptions): Promise<String[] | File[]>;
 ```
 
 ## Parameters
@@ -20,9 +20,9 @@ export declare function showOpenDialog(options: OpenDialogOptions): Promise<Stri
 
 <b>Returns:</b>
 
-Promise&lt;String\[\]&gt;
+Promise&lt;String\[\] \| File\[\]&gt;
 
-An array of file paths chosen by the user
+An array of files or file paths chosen by the user
 
 ## Remarks
 

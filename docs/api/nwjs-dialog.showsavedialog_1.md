@@ -9,7 +9,7 @@ Shows a save dialog
 <b>Signature:</b>
 
 ```typescript
-export declare function showSaveDialog(options: SaveDialogOptions): Promise<String[]>;
+export declare function showSaveDialog(options: SaveDialogOptions): Promise<String[] | File[]>;
 ```
 
 ## Parameters
@@ -20,9 +20,9 @@ export declare function showSaveDialog(options: SaveDialogOptions): Promise<Stri
 
 <b>Returns:</b>
 
-Promise&lt;String\[\]&gt;
+Promise&lt;String\[\] \| File\[\]&gt;
 
-An array of file paths chosen by the user.
+An array of files or file paths chosen by the user.
 
 ## Remarks
 
