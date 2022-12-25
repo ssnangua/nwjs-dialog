@@ -71,6 +71,9 @@ export type DialogReturnFormat = "string" | "file";
  * @param multiple - Allow multiple files to be selected
  * @param accept - Defines the file types should accept
  * @param returnFormat - Return format, `"string"` or `"file"`, `"string"` by default
+ * @param title - Alias of `nwdirectorydesc`
+ * @param defaultPath - Alias of `nwworkingdir`
+ * @param openDirectory - Alias of `nwdirectory`
  *
  * @remarks
  * `multiple` and `accept` have no effect when `nwdirectory` is `true`.
@@ -84,6 +87,9 @@ export interface OpenDialogOptions {
   multiple?: boolean;
   accept?: string;
   returnFormat?: DialogReturnFormat;
+  title?: string;
+  defaultPath?: string;
+  openDirectory?: boolean;
 }
 
 /**
@@ -92,6 +98,8 @@ export interface OpenDialogOptions {
  * @param nwsaveas - Default filename for saving
  * @param accept - Defines the file types should accept
  * @param returnFormat - Return format, `"string"` or `"file"`, `"string"` by default
+ * @param defaultPath - Alias of `nwworkingdir`
+ * @param filename - Alias of `nwsaveas`
  *
  * @remarks
  * When `nwsaveas` is omitted, the filename defaults to empty.
@@ -103,6 +111,8 @@ export interface SaveDialogOptions {
   nwsaveas?: string;
   accept?: string;
   returnFormat?: DialogReturnFormat;
+  defaultPath?: string;
+  filename?: string;
 }
 
 async function showFileDialog(
@@ -231,6 +241,18 @@ export function showOpenDialog(
 ): Promise<String[] | File[]> {
   const [win, options] = getWinAndOptions(winOrOptions, maybeOptions);
   if ("nwsaveas" in options) delete (options as SaveDialogOptions).nwsaveas;
+  if ("title" in options) {
+    options.nwdirectorydesc = options.nwdirectorydesc || options.title;
+    delete options.title;
+  }
+  if ("defaultPath" in options) {
+    options.nwworkingdir = options.nwworkingdir || options.defaultPath;
+    delete options.defaultPath;
+  }
+  if ("openDirectory" in options) {
+    options.nwdirectory = options.nwdirectory || options.openDirectory;
+    delete options.openDirectory;
+  }
   return showFileDialog.apply(null, [win, options]);
 }
 
@@ -337,6 +359,14 @@ export function showSaveDialog(
   maybeOptions?: SaveDialogOptions
 ): Promise<String[] | File[]> {
   const [win, options] = getWinAndOptions(winOrOptions, maybeOptions);
+  if ("defaultPath" in options) {
+    options.nwworkingdir = options.nwworkingdir || options.defaultPath;
+    delete options.defaultPath;
+  }
+  if ("filename" in options) {
+    options.nwsaveas = options.nwsaveas || options.filename;
+    delete options.filename;
+  }
   return showFileDialog(win, { nwsaveas: "", ...options });
 }
 
@@ -445,6 +475,8 @@ export interface ValidateError {
  * @param platform - Message box style, "default", "win32" or "darwin". Follow the os by default
  * @param customStyle - Custom style for message box elements
  * @param inputOptions - User input options
+ * @param widthOffset - Message box window width offset
+ * @param heightOffset - Message box window height offset
  * @param onLoad - Called when the message box was loaded.
  * @param onClose - Called before the message box closes, return `false` will prevents the window close.
  * @param onValidate - Called after input option validate, contains all input options errors, if everything is correct, it will be an empty array.
@@ -468,6 +500,8 @@ export interface MessageBoxOptions {
   platform?: string;
   customStyle?: string;
   inputOptions?: MessageBoxInputOptions;
+  widthOffset?: number;
+  heightOffset?: number;
   onLoad?: (win: NWJS_Helpers.win) => void;
   onClose?: (
     response: MessageBoxReturnValue,
@@ -662,14 +696,18 @@ function messageBox(
     const preset = platforms[platform];
 
     let winIcon;
+    let base64: string | undefined;
     if (icon) {
       winIcon = icon;
       icon = path.relative(preset.htmlPath, winIcon).replace(/\\/g, "/");
+      // base64 = `data:image/png;base64,${fs.readFileSync(icon, 'base64')}`;
     } else {
       icon = preset.iconsURL[type] || preset.iconsURL.none;
+      base64 = preset.icons[type] || preset.icons.none;
       winIcon = path.join(path.relative(process.cwd(), preset.dirPath), icon);
       if (platform === "darwin" && !preset.iconsURL[type] && appIcon) {
         icon = path.relative(preset.htmlPath, appIcon).replace(/\\/g, "/");
+        // base64 = `data:image/png;base64,${fs.readFileSync(appIcon, 'base64')}`;
         winIcon = appIcon;
       }
     }
@@ -677,7 +715,7 @@ function messageBox(
     if (buttons.length === 0) buttons = defaultButtons;
 
     nw.Window.open(
-      preset.htmlPath,
+      preset.htmlPath + `?t=${Date.now()}`,
       {
         id,
         frame: false,
@@ -717,6 +755,7 @@ function messageBox(
             title,
             type,
             icon,
+            base64,
             buttons,
             message,
             detail,

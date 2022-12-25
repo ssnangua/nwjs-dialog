@@ -79,6 +79,8 @@ export declare interface MessageBoxInputOptions {
  * @param platform - Message box style, "default", "win32" or "darwin". Follow the os by default
  * @param customStyle - Custom style for message box elements
  * @param inputOptions - User input options
+ * @param widthOffset - Message box window width offset
+ * @param heightOffset - Message box window height offset
  * @param onLoad - Called when the message box was loaded.
  * @param onClose - Called before the message box closes, return `false` will prevents the window close.
  * @param onValidate - Called after input option validate, contains all input options errors, if everything is correct, it will be an empty array.
@@ -102,6 +104,8 @@ export declare interface MessageBoxOptions {
     platform?: string;
     customStyle?: string;
     inputOptions?: MessageBoxInputOptions;
+    widthOffset?: number;
+    heightOffset?: number;
     onLoad?: (win: NWJS_Helpers.win) => void;
     onClose?: (response: MessageBoxReturnValue, win: NWJS_Helpers.win) => boolean | void;
     onValidate?: (errors: ValidateError[], win: NWJS_Helpers.win) => void;
@@ -132,6 +136,9 @@ export declare interface MessageBoxReturnValue {
  * @param multiple - Allow multiple files to be selected
  * @param accept - Defines the file types should accept
  * @param returnFormat - Return format, `"string"` or `"file"`, `"string"` by default
+ * @param title - Alias of `nwdirectorydesc`
+ * @param defaultPath - Alias of `nwworkingdir`
+ * @param openDirectory - Alias of `nwdirectory`
  *
  * @remarks
  * `multiple` and `accept` have no effect when `nwdirectory` is `true`.
@@ -145,6 +152,9 @@ export declare interface OpenDialogOptions {
     multiple?: boolean;
     accept?: string;
     returnFormat?: DialogReturnFormat;
+    title?: string;
+    defaultPath?: string;
+    openDirectory?: boolean;
 }
 
 /**
@@ -190,6 +200,8 @@ export declare interface Platforms {
  * @param nwsaveas - Default filename for saving
  * @param accept - Defines the file types should accept
  * @param returnFormat - Return format, `"string"` or `"file"`, `"string"` by default
+ * @param defaultPath - Alias of `nwworkingdir`
+ * @param filename - Alias of `nwsaveas`
  *
  * @remarks
  * When `nwsaveas` is omitted, the filename defaults to empty.
@@ -201,6 +213,8 @@ export declare interface SaveDialogOptions {
     nwsaveas?: string;
     accept?: string;
     returnFormat?: DialogReturnFormat;
+    defaultPath?: string;
+    filename?: string;
 }
 
 /**

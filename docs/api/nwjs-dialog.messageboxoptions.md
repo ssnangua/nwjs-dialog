@@ -25,6 +25,7 @@ If `title` is omitted, it will be the current window's title. If `buttons` is om
 |  [checkboxLabel?](./nwjs-dialog.messageboxoptions.checkboxlabel.md) | string | <i>(Optional)</i> |
 |  [customStyle?](./nwjs-dialog.messageboxoptions.customstyle.md) | string | <i>(Optional)</i> |
 |  [detail?](./nwjs-dialog.messageboxoptions.detail.md) | string | <i>(Optional)</i> |
+|  [heightOffset?](./nwjs-dialog.messageboxoptions.heightoffset.md) | number | <i>(Optional)</i> |
 |  [icon?](./nwjs-dialog.messageboxoptions.icon.md) | string | <i>(Optional)</i> |
 |  [id?](./nwjs-dialog.messageboxoptions.id.md) | string | <i>(Optional)</i> |
 |  [inputOptions?](./nwjs-dialog.messageboxoptions.inputoptions.md) | [MessageBoxInputOptions](./nwjs-dialog.messageboxinputoptions.md) | <i>(Optional)</i> |
@@ -35,4 +36,5 @@ If `title` is omitted, it will be the current window's title. If `buttons` is om
 |  [platform?](./nwjs-dialog.messageboxoptions.platform.md) | string | <i>(Optional)</i> |
 |  [title?](./nwjs-dialog.messageboxoptions.title.md) | string | <i>(Optional)</i> |
 |  [type?](./nwjs-dialog.messageboxoptions.type.md) | string | <i>(Optional)</i> |
+|  [widthOffset?](./nwjs-dialog.messageboxoptions.widthoffset.md) | number | <i>(Optional)</i> |
 

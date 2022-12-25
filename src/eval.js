@@ -62,6 +62,7 @@ window.__setOptions__ = ({
   title = "",
   type = "none",
   icon = "",
+  base64,
   buttons = [],
   message = "",
   detail = "",
@@ -70,6 +71,8 @@ window.__setOptions__ = ({
   platform = "",
   customStyle = "",
   inputOptions,
+  widthOffset = 0,
+  heightOffset = 0,
 }) => {
   $("body").classList.add(platform, `type-${type}`);
   // Custom style
@@ -77,7 +80,7 @@ window.__setOptions__ = ({
   // Title
   document.title = title;
   // Icon
-  $(".header-icon").src = icon;
+  $(".header-icon").src = base64 || icon;
   if (type === "none") {
     $(".body-icon").classList.add("hide");
   } else {
@@ -204,5 +207,5 @@ window.__setOptions__ = ({
   });
   // Auto resize
   const { offsetWidth, offsetHeight } = $(".message-box");
-  window.resizeTo(offsetWidth, offsetHeight);
+  window.resizeTo(offsetWidth + widthOffset, offsetHeight + heightOffset);
 };

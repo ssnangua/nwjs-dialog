@@ -18,9 +18,9 @@ Shows an open dialog.
 
 - `win` (optional)
 - `options` (optional)
-  - `nwdirectorydesc` string (optional) - Dialog title
-  - `nwworkingdir` string (optional) - Default path
-  - `nwdirectory` boolean (optional) - Select directory, `false` by default
+  - `title` / `nwdirectorydesc` string (optional) - Dialog title.
+  - `defaultPath` / `nwworkingdir` string (optional) - Default path
+  - `openDirectory` / `nwdirectory` boolean (optional) - Select directory, `false` by default
   - `multiple` boolean (optional) - Allow multiple files to be selected, `false` by default
   - `accept` string (optional) - Defines the file types should accept
   - `returnFormat` string (optional) - Return format, `"string"` or `"file"`, `"string"` by default
@@ -29,7 +29,9 @@ Returns `Promise<string[] | File[]>` - Resolve with an array of files or file pa
 
 The `win` argument allows the dialog to attach itself to a parent window, making it modal.
 
-`multiple` and `accept` have no effect when `nwdirectory` is `true`.
+`multiple` and `accept` have no effect when `openDirectory` (`nwdirectory`) is `true`.
+
+`title` (`nwdirectorydesc`) valid only when `openDirectory` (`nwdirectory`) is `true`.
 
 ```js
 const { showOpenDialog } = require("nwjs-dialog");
@@ -39,9 +41,9 @@ showOpenDialog().then(([filePath]) => {
 });
 
 showOpenDialog({
-  nwdirectorydesc: "Dialog title",
-  nwworkingdir: process.cwd(),
-  nwdirectory: false,
+  title: "Dialog title",
+  defaultPath: process.cwd(),
+  openDirectory: false,
   multiple: true,
   accept: "audio/*,video/*,image/*,.txt",
   returnFormat: "string",
@@ -58,8 +60,8 @@ Shows a save dialog.
 
 - `win` (optional)
 - `options` (optional)
-  - `nwworkingdir` string (optional) - Default path
-  - `nwsaveas` string (optional) - Default filename for saving
+  - `defaultPath` / `nwworkingdir` string (optional) - Default path
+  - `filename` / `nwsaveas` string (optional) - Default filename for saving
   - `accept` string (optional) - Defines the file types should accept
   - `returnFormat` string (optional) - Return format, `"string"` or `"file"`, `"string"` by default
 
@@ -67,7 +69,7 @@ Returns `Promise<string[] | File[]>` - Resolve with an array of files or file pa
 
 The `win` argument allows the dialog to attach itself to a parent window, making it modal.
 
-When `nwsaveas` is omitted, the filename defaults to empty.
+When `filename` (`nwsaveas`) is omitted, the filename defaults to empty.
 
 ```js
 const fs = require("fs");
@@ -78,10 +80,10 @@ showSaveDialog().then(([filePath]) => {
 });
 
 showSaveDialog({
-  nwworkingdir: process.cwd(),
-  nwsaveas: "1.txt",
+  defaultPath: process.cwd(),
+  filename: "1.txt",
   accept: "audio/*,video/*,image/*,.txt",
-  returnFormat: "file",
+  returnFormat: "string",
 }).then(([filePath]) => {
   fs.writeFileSync(filePath, "Hello");
 });
@@ -410,3 +412,8 @@ showMessageBox({
 ### 1.0.6
 
 - Feature: `showOpenDialog` and `showSaveDialog` add `returnFormat` option.
+
+### 1.1.0
+
+- Feature: add alias: `nwdirectorydesc` -> `title`, `nwworkingdir` -> `defaultPath`, `nwdirectory` -> `openDirectory`, `nwsaveas` -> `filename`
+- Fix: header-icon use base64 image

@@ -21,9 +21,12 @@ export interface OpenDialogOptions
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [accept?](./nwjs-dialog.opendialogoptions.accept.md) | string | <i>(Optional)</i> |
+|  [defaultPath?](./nwjs-dialog.opendialogoptions.defaultpath.md) | string | <i>(Optional)</i> |
 |  [multiple?](./nwjs-dialog.opendialogoptions.multiple.md) | boolean | <i>(Optional)</i> |
 |  [nwdirectory?](./nwjs-dialog.opendialogoptions.nwdirectory.md) | boolean | <i>(Optional)</i> |
 |  [nwdirectorydesc?](./nwjs-dialog.opendialogoptions.nwdirectorydesc.md) | string | <i>(Optional)</i> |
 |  [nwworkingdir?](./nwjs-dialog.opendialogoptions.nwworkingdir.md) | string | <i>(Optional)</i> |
+|  [openDirectory?](./nwjs-dialog.opendialogoptions.opendirectory.md) | boolean | <i>(Optional)</i> |
 |  [returnFormat?](./nwjs-dialog.opendialogoptions.returnformat.md) | [DialogReturnFormat](./nwjs-dialog.dialogreturnformat.md) | <i>(Optional)</i> |
+|  [title?](./nwjs-dialog.opendialogoptions.title.md) | string | <i>(Optional)</i> |
 
